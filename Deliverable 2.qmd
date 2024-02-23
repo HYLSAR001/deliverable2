@@ -113,8 +113,9 @@ read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx
   left_join(sr, by = "SitePoint") %>%
   GGally::ggpairs(columns = 2:ncol(.))
 ```
+
 ## print image
+
 ```{r}
 print(last_plot())
 ```
-
