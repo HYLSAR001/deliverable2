@@ -24,19 +24,19 @@ library(GGally)
 # Get list of files in the folder
 
 ```{r}
-list.files("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data")
+list.files("data")
 ```
 
 # Sheets in the Excel workbook
 
 ```{r}
-excel_sheets("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx")
+excel_sheets("data/rockydata.xlsx")
 ```
 
 # Read in data from sheet 'Sites'
 
 ```{r}
-sites <- read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Sites")
+sites <- read_xlsx("data/rockydata.xlsx", sheet = "Sites")
 ```
 
 ## Summarise Sites
@@ -48,7 +48,7 @@ sites
 # Read in data from sheet 'Species'
 
 ```{r}
-species <- read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Species")
+species <- read_xlsx("data/rockydata.xlsx", sheet = "Species")
 ```
 
 ## Summarise Species
@@ -78,7 +78,7 @@ mutate(Presence = 1) %>% # adds a column called "Presence" filled with "1"
 ## Use unite to combine the site and point columns into a new column called SitePoint
 
 ```{r}
-read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Species") %>% 
+read_xlsx("data/rockydata.xlsx", sheet = "Species") %>% 
   unite("SitePoint", Site:Point, sep = "_") %>%
   select(SitePoint, WorkingName) %>%
   mutate(Presence = 1) %>% # adds a column called "Presence" filled with "1"
@@ -88,7 +88,7 @@ read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx
 ## Calculate number of species in each site
 
 ```{r}
-sr <- read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Species") %>% 
+sr <- read_xlsx("data/rockydata.xlsx", sheet = "Species") %>% 
   unite("SitePoint", Site:Point, sep = "_") %>%
   select(SitePoint, WorkingName) %>% 
   group_by(SitePoint) %>%
@@ -100,7 +100,7 @@ sr
 ## Read in site data, select columns and join sr
 
 ```{r}
-read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Sites") %>%
+read_xlsx("data/rockydata.xlsx", sheet = "Sites") %>%
   select(SitePoint, PercentRock, waterPH) %>%
   left_join(sr, by = "SitePoint")
 ```
@@ -108,7 +108,7 @@ read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx
 # Plot comparisons
 
 ```{r}
-read_xlsx("C:/Users/Lenovo/OneDrive/Desktop/GIT/deliverable2/data/rockydata.xlsx", sheet = "Sites") %>%
+read_xlsx("data/rockydata.xlsx", sheet = "Sites") %>%
   select(SitePoint, PercentRock, waterPH) %>%
   left_join(sr, by = "SitePoint") %>%
   GGally::ggpairs(columns = 2:ncol(.))
